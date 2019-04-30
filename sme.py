@@ -2,7 +2,10 @@
 #coding:utf-8
 #Simulator for Magicicadas Extarmination, SME v.3.0.0 source code
 #素数ゼミ絶滅シミュレーター
-#made by @itoppy18
+#created by Mamoru Itoi
+
+from colorama import Fore, Style
+import time
 
 #メイン関数の定義
 #nは初期蝉個体数(nomber)、yは繰り返す回数(years)
@@ -21,6 +24,7 @@ def main(n, y):
 						}	
 	#②「年」の初期化
 	years = 0
+	time.sleep(6)
 	#指定した回数繰り返す
 	for i in range(y):
 		#mcAll:その年出てきた蝉の合計
@@ -44,9 +48,8 @@ def main(n, y):
 		for key in mcDict:
 			#もし出現すれば「割合減少法」により減らす
 			#割合減少法：
-			#「蝉の個体数が全体の中で占める割合が大きければ、
-			#それ以外の蝉と交雑することも少ないだろう」という発想の減少方法。
-			#要するに15年ゼミがその年出現した蝉の90%を占めていたら交雑する確率は(100-90=)10%だろう。
+			#「蝉の個体数が全体の中で占める割合が大きければ、それ以外の蝉と交雑することも少ないだろう」という発想の減少方法。
+			#あるセミがその年出現した蝉の90%を占めていたら交雑する確率は(100-90=)10%だろう。
 			if key in index and mcAll != 0:
 				int(mcDict[key])
 				mcPer = mcDict[key] / mcAll
@@ -56,9 +59,21 @@ def main(n, y):
 		#年と蝉の個体数を出力して1年分の処理を終了
 		print(years)
 		print(mcDict)
-	#すべて終了したらendと出力して終了
-	print("end")
+		time.sleep(0.05)
+	isExtermination = True
+	for k, v in mcDict.items():
+		if v != 0:
+			isExtermination = False
+	print("終了…")
+	time.sleep(1)
+	print("結果：")
+	if isExtermination:
+		print(Fore.RED + "祝・絶滅！")
+	else:
+		print(Fore.RED + "生き残りやがった…")
+	print(Style.RESET_ALL)
+	time.sleep(20)
 
 #実行！
-main(1000000000000, 10000)
+main(10000000, 800)
 					
